@@ -8,7 +8,8 @@ Bloomworld (tenative title)
 
 ## Project's Purpose or Goal: (What will it do for users?)
 
-Browser game that allows players to, after a real-time delay, place down different type of "plants" in a two-dimensional grid (an instance of which will be called a "map"), each of which reproduces and spreads to nearby grid squares according to rules defined by the plant's type at regular time intervals (likely every one to five minutes). The goal is to maximize growth; each plant cell grown rewards the player with seeds, which can be used to grow more plants in the grid.
+Browser game that allows players to, after a real-time delay, place down different type of "plants" in a two-dimensional grid (an instance of which will be called a "map"), each of which reproduces and spreads to nearby grid squares according to rules defined by the plant's type at regular time intervals (likely every one to five minutes).
+The goal is to maximize growth; each plant cell grown rewards the player with seeds, which can be used to grow more plants in the grid.
 
 ## List the absolute minimum features the project requires to meet this purpose or goal:
 
