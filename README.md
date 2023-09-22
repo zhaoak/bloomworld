@@ -13,12 +13,13 @@ In-browser online cellular automata inspired farming/idle game
 ### Backend
 
 - [ExpressJS](https://expressjs.com/)
-- [MySQL Node.js client library](https://github.com/mysqljs/mysql)
-- Basic username/password authentication via [Passport](http://www.passportjs.org/)
+- [Firebase](https://firebase.google.com/) for database services and auth
+- ~[MySQL Node.js client library](https://github.com/mysqljs/mysql)~
+- ~Basic username/password authentication via [Passport](http://www.passportjs.org/)~
 
-### Database
+### ~Database~
 
-- [MariaDB](https://mariadb.com/) (client-compatible with MySQL)
+- ~[MariaDB](https://mariadb.com/) (client-compatible with MySQL)~
 
 ## What is this?
 
@@ -31,6 +32,14 @@ Seeds are used to fill in new cells with different types of plants, the goal bei
 ## Setup/Installation
 
 WIP
+
+## Research & Planning Log
+
+#### Friday, 9/22/2023
+
+- 1:45PM - Investigate Firebase datatypes, consider using Firebase as a DB rather than a MySQL instance
+- 2:15PM - Help Pier with his API stuff
+- 3:00PM - setting up Firebase Realtime Database
 
 ## Known Bugs
 
