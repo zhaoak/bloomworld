@@ -6,4 +6,5 @@ I am going to lay out individual steps I need to make to get this project runnin
 
 - set up Firebase 
 - set up development Express instance
+- put API keys in .env file and push .gitignore
 - connect Express instance to Firebase DB

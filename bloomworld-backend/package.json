@@ -1,0 +1,15 @@
+{
+  "name": "bloomworld-backend",
+  "version": "1.0.0",
+  "description": "backend server for Bloomworld game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Allie Zhao",
+  "license": "GPL-2.0-only",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^10.4.0"
+  }
+}
