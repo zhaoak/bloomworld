@@ -41,7 +41,7 @@ This backend server expects the Firebase Realtime Database to be structured like
         "[user key (number, same as user_id)]": {
             "user_id": [user id (number)],
             "display_name": [display name (string)],
-            "seeds": [seed_amount (number)],
+            "seeds": [amount of currency owned by player (number)],
             "owned_maps": {
                 [map ID (number)]: true,
                 ...
@@ -52,12 +52,19 @@ This backend server expects the Firebase Realtime Database to be structured like
 
     "maps": {
         "[map key (number)]": {
-            "map_data": {map data (see "map data format" section)},
-            "owner": {user_id of owner}
+            "map_data": [map data (see "map data format" section)],
+            "width": [width of map, in number of cells (number)],
+            "height": [height of map, in number of cells (number)],
+            "owner": [user_id of owner (number)]
         },
         ...
     },
-
+    
+    "cell_types": {
+        "hyacinth": {
+            
+        }
+    }
 }
 ```
 

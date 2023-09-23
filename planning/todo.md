@@ -9,4 +9,5 @@ I am going to lay out individual steps I need to make to get this project runnin
 - ~put API keys in .env file and push .gitignore~
 - ~connect Express instance to Firebase DB~
 - decide on+document data structure for Firebase storage
+- design map encoding format
 - start writing/testing Express functions for writing/updating DB
