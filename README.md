@@ -13,7 +13,7 @@ In-browser online cellular automata inspired farming/idle game
 ### Backend
 
 - [ExpressJS](https://expressjs.com/)
-- [Firebase](https://firebase.google.com/) for database services and auth
+- [Firebase Realtime Database](https://firebase.google.com/) for database services and auth
 - ~[MySQL Node.js client library](https://github.com/mysqljs/mysql)~
 - ~Basic username/password authentication via [Passport](http://www.passportjs.org/)~
 
@@ -30,6 +30,38 @@ Seeds are used to fill in new cells with different types of plants, the goal bei
 
 
 ## Setup/Installation
+
+### Storage format
+
+This backend server expects the Firebase Realtime Database to be structured like this:
+
+```json
+{
+    "users": {
+        "[user key (number, same as user_id)]": {
+            "user_id": [user id (number)],
+            "display_name": [display name (string)],
+            "seeds": [seed_amount (number)],
+            "owned_maps": {
+                [map ID (number)]: true,
+                ...
+            }
+        }
+        ...
+    }
+
+    "maps": {
+        "[map key (number)]": {
+            "map_data": {map data (see "map data format" section)},
+            "owner": {user_id of owner}
+        },
+        ...
+    },
+
+}
+```
+
+### Map data format
 
 WIP
 
