@@ -40,6 +40,9 @@ WIP
 - 1:45PM - Investigate Firebase datatypes, consider using Firebase as a DB rather than a MySQL instance
 - 2:15PM - Help Pier with his API stuff
 - 3:00PM - setting up Firebase Realtime Database
+- 3:30PM - setting up express
+- 4:00PM - reading docs on Realtime Database data structuring
+- 4:40PM - writing test code to read/write to DB
 
 
 ## Known Bugs
