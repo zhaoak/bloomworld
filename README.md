@@ -77,7 +77,8 @@ This backend server expects the Firebase Realtime Database to be structured like
             "symbol": "A",
             "spread_radius": 1,
             "cost": 5, // cost in seeds to place one of these cells
-            "placeable": true
+            "placeable": true,
+            "reward": 3 // how many seeds a player earns each time a new cell of this type is created
         },
         ...
         }
