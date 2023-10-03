@@ -35,7 +35,7 @@ Seeds are used to fill in new cells with different types of plants, the goal bei
 
 This backend server expects the Firebase Realtime Database to be structured like this:
 
-```json
+```
 {
     // list of users
     "users": {
