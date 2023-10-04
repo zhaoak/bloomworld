@@ -2,6 +2,8 @@ import { db, auth } from './firebase.js';
 import { ref, set, get, child } from "firebase/database";
 import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT } from './config/serverSettings';
 
+// Initialize Express
+// I may remove express later--for now, clients don't talk directly to this server
 import express from 'express';
 const app = express();
 const port = 3000;

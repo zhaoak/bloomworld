@@ -10,4 +10,8 @@ I am going to lay out individual steps I need to make to get this project runnin
 - ~connect Express instance to Firebase DB~
 - ~decide on+document data structure for Firebase storage~
 - ~design map encoding format~
-- start writing/testing Express functions for writing/updating DB
+
+## Phase 2: Basic game functionality code & testing
+
+- write server map generation code
+- write server map update/cell spread code

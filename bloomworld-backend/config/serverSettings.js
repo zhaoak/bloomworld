@@ -9,3 +9,6 @@ export const DEFAULT_MAX_MAPS_PER_USER = 1;
 // Default map size in cells.
 export const DEFAULT_MAP_WIDTH = 32;
 export const DEFAULT_MAP_HEIGHT = 32;
+
+// Whether to update the database's `cell_types` list with the server's cell type list on server startup.
+export const UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP = false; 
