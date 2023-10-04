@@ -9,8 +9,9 @@ import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, D
 // const port = 3000;
 
 // testing various functions
-import { generateEmptyMapString } from './utils/mapUtils.js';
-console.log(generateEmptyMapString(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, '-'));
+import { updateMap, generateAsciiMap } from './utils/mapUtils.js';
+console.log(updateMap('---------', 3, 3));
+generateAsciiMap('fjakf12-12A', 12, 2);
 
 // Initialize database if necessary
 if (UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP) {

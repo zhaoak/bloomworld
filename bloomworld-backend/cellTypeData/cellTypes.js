@@ -2,20 +2,20 @@
   * Author: Allie Zhao
   */
 
-  export const cell_types = {
-    0: {
+  export const cell_types = [
+    {
       name: 'empty',
       symbol: '-',
       placeable: false
     },
 
-    1: {
+    {
       name: 'barrier',
       symbol: '#',
       placeable: false
     },
 
-    2: {
+    {
       name: 'Solarose',
       symbol: 'A',
       spread_radius: 1,
@@ -23,4 +23,7 @@
       reward: 3,
       placeable: true
     }
-  }
+  ]
+
+  // generate array of cell symbols for reading map strings
+  export const cellSymbolList = cell_types.map((cellType) => cellType.symbol);

@@ -13,5 +13,5 @@ I am going to lay out individual steps I need to make to get this project runnin
 
 ## Phase 2: Basic game functionality code & testing
 
-- write server map generation code
+- ~write server map generation code~
 - write server map update/cell spread code
