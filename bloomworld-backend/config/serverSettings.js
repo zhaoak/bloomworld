@@ -11,4 +11,9 @@ export const DEFAULT_MAP_WIDTH = 32;
 export const DEFAULT_MAP_HEIGHT = 32;
 
 // Whether to update the database's `cell_types` list with the server's cell type list on server startup.
+// The database's cell_types list should always be synchronized with the server's.
+// Clients retrieve the `cell_types` list from the database on startup.
 export const UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP = false; 
+
+// Whether the server should update maps or not.
+export const RUN_MAP_UPDATES = true;

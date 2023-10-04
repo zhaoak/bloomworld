@@ -59,7 +59,8 @@ This backend server expects the Firebase Realtime Database to be structured like
             "width": [width of map, in number of cells (number)],
             "height": [height of map, in number of cells (number)],
             "owner": [user_id of owner (number)],
-            "frozen": [whether map should be updated each update interval or not (bool)]
+            "frozen": [whether map should be updated each update interval or not (bool)],
+            "updated": [timestamp of last map update]
         },
         ...
     },

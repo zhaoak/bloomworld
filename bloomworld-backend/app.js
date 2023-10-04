@@ -1,18 +1,36 @@
 import { db, auth } from './firebase.js';
 import { ref, set, get, child } from "firebase/database";
-import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT } from './config/serverSettings';
+import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, RUN_MAP_UPDATES, UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP } from './config/serverSettings.js';
 
 // Initialize Express
 // I may remove express later--for now, clients don't talk directly to this server
-import express from 'express';
-const app = express();
-const port = 3000;
+// import express from 'express';
+// const app = express();
+// const port = 3000;
+
+// testing various functions
+import { generateEmptyMapString } from './utils/mapUtils.js';
+console.log(generateEmptyMapString(DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT, '-'));
+
+// Initialize database if necessary
+if (UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP) {
+  // do that
+}
+
+if (RUN_MAP_UPDATES) {
+  setInterval(updateOnInterval, UPDATE_INTERVAL_LENGTH * 1000);
+}
+
+// Main update loop, runs every UPDATE_INTERVAL_LENGTH * 1000 ms
+function updateOnInterval() {
+  console.log(Date.now() + ' - running update loop');
+
+  // update cell growth on all maps
+
+  // run player requests
 
 
-
-
-
-
+}
 
 // Firebase testing code
 // async function getTestData() {

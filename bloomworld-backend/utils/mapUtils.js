@@ -8,6 +8,10 @@ import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH } from '../config/serverSettings.
 
 
 // generate a new empty map string with specified width and height
-export function generateEmptyMap(width, height, emptyCellSymbol) {
+export function generateEmptyMapString(width, height, emptyCellSymbol) {
   return `${width * height}${emptyCellSymbol}`;
+}
+
+export function updateMap(mapData, width, height) {
+
 }
