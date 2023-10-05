@@ -25,16 +25,16 @@ export function updateMap(mapData, width, height) {
     // if the examined cell is of a type that reproduces
     if (mapData[i] === reproducingCellSymbolList[0]) {
       // identify possible locations to place new cell
-      let possibleCellPositionIndexes = [];
+      const possibleCellPositionIndexes = [];
       
       // look left and right
       // check if cell to left is empty, and whether you're on left border
-      if (mapData[i - 1] === cellEmptySymbol  && i % width != 0)
+      if (mapData[i - 1] === cellEmptySymbol  && i % width !== 0)
       {
         possibleCellPositionIndexes.push(i - 1);
       }
       // check if cell to right is empty, and whether you're on right border
-      if (mapData[i + 1] === cellEmptySymbol  && i + 1 % width != 0)
+      if (mapData[i + 1] === cellEmptySymbol  && (i + 1) % width !== 0)
       {
         possibleCellPositionIndexes.push(i + 1);
       }
@@ -55,7 +55,7 @@ export function updateMap(mapData, width, height) {
       // update map that will be returned--not input one
       // If no possible positions are found, do nothing
       // Even if a move is possible, there's a static 2/3 chance to do nothing instead
-      if (possibleCellPositionIndexes.length != 0 && Math.floor(Math.random() * 3) > 1) {
+      if (possibleCellPositionIndexes.length > 0 && Math.floor(Math.random() * 3) > 1) {
         updatedMap = replaceAtIndex(updatedMap, cellTargetPosition, reproducingCellSymbolList[0]);
       }
     }
@@ -85,6 +85,7 @@ export function insertLineBreaks(inputStr, width, height) {
 export function decodeMap(mapData, width, height, includeLineBreaks = true) {
   
   let outputString = '';
+  let inputString = mapData;
   
   // useful regexes
   const findDigitsRegex = /[0-9]+/;
@@ -92,23 +93,23 @@ export function decodeMap(mapData, width, height, includeLineBreaks = true) {
   const findNonDigitFollowedByDigit = /[^0-9][0-9]/;
   
   // iterate through string, removing what we parse as we go and appending it to outputString
-  while (mapData.length > 0) {
+  while (inputString.length > 0) {
     // Two possible cases: either beginning of string is in form digit+symbol,
     // or string starts with one or more standalone symbols.
 
     // Digit+symbol case:
-    if (mapData.search(findDigitsRegex) === 0) {
+    if (inputString.search(findDigitsRegex) === 0) {
       // by 'word' I mean digit+symbol combo, like '12A'
       const wordStartIndex = 0;
-      const wordEndIndex = mapData.search(findNonDigit);
-      const repeatSymbolValue = parseInt(mapData.slice(wordStartIndex, wordEndIndex+1));
+      const wordEndIndex = inputString.search(findNonDigit);
+      const repeatSymbolValue = parseInt(inputString.slice(wordStartIndex, wordEndIndex+1));
 
       // write symbol to outputString X times
-      outputString = outputString.padEnd(outputString.length + repeatSymbolValue, mapData[wordEndIndex]);
+      outputString = outputString.padEnd(outputString.length + repeatSymbolValue, inputString[wordEndIndex]);
 
       // remove digits and symbol from input string if there's more to process after
-      if (mapData.length != wordEndIndex+1) {
-        mapData = mapData.substring(wordEndIndex + 1);
+      if (inputString.length !== wordEndIndex+1) {
+        inputString = inputString.substring(wordEndIndex + 1);
       } else { // otherwise just add linebreaks and return, since we're done
         if (includeLineBreaks) {
           outputString = insertLineBreaks(outputString, width, height);
@@ -121,8 +122,8 @@ export function decodeMap(mapData, width, height, includeLineBreaks = true) {
     else {
       // if no digits are left in input string, write whole thing to outputString, add linebreaks
       // and then return outputString--we're done with the loop at this point
-      if (mapData.search(findDigitsRegex) === -1) {
-        outputString += mapData;
+      if (inputString.search(findDigitsRegex) === -1) {
+        outputString += inputString;
         if (includeLineBreaks) {
           outputString = insertLineBreaks(outputString, width, height);
         }
@@ -130,10 +131,10 @@ export function decodeMap(mapData, width, height, includeLineBreaks = true) {
       } else { 
         // otherwise, write to outputString and remove symbol sequence
         const wordStartIndex = 0; // here, 'word' means non-digit sequence
-        const wordEndIndex = mapData.search(findNonDigitFollowedByDigit);
+        const wordEndIndex = inputString.search(findNonDigitFollowedByDigit);
 
-        outputString += mapData.slice(0, wordEndIndex+1);
-        mapData = mapData.substring(wordEndIndex + 1);
+        outputString += inputString.slice(0, wordEndIndex+1);
+        inputString = inputString.substring(wordEndIndex + 1);
       }
     }
   }

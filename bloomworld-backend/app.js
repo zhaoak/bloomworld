@@ -18,8 +18,8 @@ import { updateMap, decodeMap, insertLineBreaks } from './utils/mapUtils.js';
 // console.log(cell_types);
 // console.log(cellSymbolList);
 // console.log(reproducingCellSymbolList);
-
-let testMap = decodeMap('A575-', 24, 24, false);
+// let debugMap = decodeMap('4-A4-A4-A4-A4-A', 5, 5, false);
+let testMap = decodeMap('30-2A200-2A202-1A137-2A', 24, 24, false);
 //=======================================
 
 // Initialize database if necessary
@@ -37,6 +37,8 @@ function updateOnInterval() {
   // testing code
   testMap = updateMap(testMap, 24, 24);
   console.log(insertLineBreaks(testMap, 24, 24));
+  // debugMap = updateMap(debugMap, 5, 5);
+  // console.log(insertLineBreaks(debugMap, 5, 5));
 
   // update cell growth on all maps
 
