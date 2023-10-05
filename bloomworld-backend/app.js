@@ -11,7 +11,7 @@ import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, D
 // testing various functions
 import { updateMap, generateAsciiMap } from './utils/mapUtils.js';
 console.log(updateMap('---------', 3, 3));
-generateAsciiMap('fjakf12-12A', 12, 2);
+console.log(generateAsciiMap('fjfj12-jf12A34bbbbbbb', 12, 2));
 
 // Initialize database if necessary
 if (UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP) {

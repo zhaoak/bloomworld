@@ -22,42 +22,59 @@ export function updateMap(mapData, width, height) {
   }
 }
 
-// parse map string into full length map
-export function generateAsciiMap(mapData, width, height) {
+// Parse map string into full length map, with each cell represented by a character.
+export function generateAsciiMap(mapData, width, height, includeLineBreaks = true) {
+  
   let outputString = '';
+  
+  function insertLineBreaks(input, width, height) {
+    
+  };
 
+  // useful regexes
+  const findDigitsRegex = /[0-9]+/;
+  const findNonDigit = /[^0-9]/;
+  const findNonDigitFollowedByDigit = /[^0-9][0-9]/;
+  
+  // iterate through string, removing what we parse as we go and appending it to outputString
   while (mapData.length > 0) {
+    console.log(mapData);
+    console.log('outputString: ' + outputString);
     // Two possible cases: either beginning of string is in form digit+symbol,
-    // or string starts with one or more standalone symbols
+    // or string starts with one or more standalone symbols.
 
     // Digit+symbol case:
+    if (mapData.search(findDigitsRegex) === 0) {
+      // by 'word' I mean digit+symbol combo, like '12A'
+      const wordStartIndex = 0;
+      const wordEndIndex = mapData.search(findNonDigit);
+      const repeatSymbolValue = parseInt(mapData.slice(wordStartIndex, wordEndIndex+1));
+
+      // write symbol to outputString X times
+      outputString = outputString.padEnd(outputString.length + repeatSymbolValue, mapData[wordEndIndex]);
+
+      // remove digits and symbol from input string if there's more to process after
+      if (mapData.length != wordEndIndex+1) {
+        mapData = mapData.substring(wordEndIndex + 1);
+      } else { // otherwise just add linebreaks and return, since we're done
+        return outputString;
+      }
+    }
 
     // 1 or more standalone symbols case:
+    else {
+      // if no digits are left in input string, write whole thing to outputString, add linebreaks
+      // and then return outputString--we're done with the loop at this point
+      if (mapData.search(findDigitsRegex) === -1) {
+        outputString += mapData;
+        return outputString;
+      } else { // otherwise, write to outputString and remove symbol sequence
+        const wordStartIndex = 0;
+        const wordEndIndex = mapData.search(findNonDigitFollowedByDigit);
 
-    // Either way, after writing expanded digit+symbol or standalone symbols to outputString,
-    // remove what you just wrote to outputString from beginning of mapData
-
-
-    // // useful regexes
-    // const findDigitsRegex = /[0-9]+/;
-    // const findDigitFollowedByNonDigit = /[0-9][^0-9]/;
-    // const findNonDigitFollowedByDigit = /[^0-9][0-9]/;
-    //
-    // // write any cells at start of string not using digits to outputString
-    // if (mapData.search(findDigitsRegex) != 0 && ) {
-    //   outputString += mapData.slice(0, mapData.search(findNonDigitFollowedByDigit+1));
-    // }
-    //
-    // while (mapData.search(findDigitsRegex) != -1) {
-    //   // read first occurrence of number in mapData into charRepeats
-    //   const digitIndexStart = mapData.search(findDigitsRegex);
-    //   const digitIndexEnd = mapData.search(findDigitFollowedByNonDigit);
-    //   const charRepeats = parseInt(mapData.slice(digitIndexStart, digitIndexEnd+1));
-    //
-    //   // remove number from mapData string
-    //   mapData = mapData.replace(findDigitsRegex, '');
-    //};
-
+        outputString += mapData.slice(0, wordEndIndex+1);
+        mapData = mapData.substring(wordEndIndex + 1);
+      }
+    }
   }
-  // return outputString;
 }
