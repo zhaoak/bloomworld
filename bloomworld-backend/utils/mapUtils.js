@@ -27,8 +27,16 @@ export function generateAsciiMap(mapData, width, height, includeLineBreaks = tru
   
   let outputString = '';
   
-  function insertLineBreaks(input, width, height) {
-    
+  // Helper function for adding line breaks based on height and width.
+  function insertLineBreaks(inputStr, width, height) {
+    let outputString = inputStr;
+    let linebreaksInserted = 0;
+    while (linebreaksInserted < height) {
+      // we add the value of linebreaks because the string gets 1 char longer with each new linebreak
+      outputString = outputString.slice(0, width * linebreaksInserted + linebreaksInserted) + '\n' + outputString.slice(width * linebreaksInserted + linebreaksInserted);
+      linebreaksInserted++;
+    }
+    return outputString;
   };
 
   // useful regexes
@@ -38,8 +46,6 @@ export function generateAsciiMap(mapData, width, height, includeLineBreaks = tru
   
   // iterate through string, removing what we parse as we go and appending it to outputString
   while (mapData.length > 0) {
-    console.log(mapData);
-    console.log('outputString: ' + outputString);
     // Two possible cases: either beginning of string is in form digit+symbol,
     // or string starts with one or more standalone symbols.
 
@@ -57,6 +63,9 @@ export function generateAsciiMap(mapData, width, height, includeLineBreaks = tru
       if (mapData.length != wordEndIndex+1) {
         mapData = mapData.substring(wordEndIndex + 1);
       } else { // otherwise just add linebreaks and return, since we're done
+        if (includeLineBreaks) {
+          outputString = insertLineBreaks(outputString, width, height);
+        }
         return outputString;
       }
     }
@@ -67,8 +76,12 @@ export function generateAsciiMap(mapData, width, height, includeLineBreaks = tru
       // and then return outputString--we're done with the loop at this point
       if (mapData.search(findDigitsRegex) === -1) {
         outputString += mapData;
+        if (includeLineBreaks) {
+          outputString = insertLineBreaks(outputString, width, height);
+        }
         return outputString;
-      } else { // otherwise, write to outputString and remove symbol sequence
+      } else { 
+        // otherwise, write to outputString and remove symbol sequence
         const wordStartIndex = 0;
         const wordEndIndex = mapData.search(findNonDigitFollowedByDigit);
 
