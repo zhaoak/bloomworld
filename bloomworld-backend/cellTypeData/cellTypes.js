@@ -27,3 +27,6 @@
 
   // generate array of cell symbols for reading map strings
   export const cellSymbolList = cell_types.map((cellType) => cellType.symbol);
+
+  // generate array of cell symbols that reproduce, used in cell spread logic
+  export const reproducingCellSymbolList = cell_types.filter((cellType) => cellType.spread_radius).map((cellType) => cellType.symbol);

@@ -8,10 +8,19 @@ import { UPDATE_INTERVAL_LENGTH, DEFAULT_MAX_MAPS_PER_USER, DEFAULT_MAP_WIDTH, D
 // const app = express();
 // const port = 3000;
 
+//========================================
 // testing various functions
-import { updateMap, generateAsciiMap } from './utils/mapUtils.js';
-console.log(updateMap('---------', 3, 3));
-console.log(generateAsciiMap('12-12A', 12, 2));
+import { updateMap, decodeMap, insertLineBreaks } from './utils/mapUtils.js';
+// console.log(updateMap('---------', 3, 3));
+// console.log(decodeMap('12-12A', 12, 2));
+//
+// import { cell_types, cellSymbolList, reproducingCellSymbolList } from './cellTypeData/cellTypes.js';
+// console.log(cell_types);
+// console.log(cellSymbolList);
+// console.log(reproducingCellSymbolList);
+
+let testMap = decodeMap('A575-', 24, 24, false);
+//=======================================
 
 // Initialize database if necessary
 if (UPDATE_FIREBASE_CELLTYPE_LIST_ON_STARTUP) {
@@ -25,6 +34,9 @@ if (RUN_MAP_UPDATES) {
 // Main update loop, runs every UPDATE_INTERVAL_LENGTH * 1000 ms
 function updateOnInterval() {
   console.log(Date.now() + ' - running update loop');
+  // testing code
+  testMap = updateMap(testMap, 24, 24);
+  console.log(insertLineBreaks(testMap, 24, 24));
 
   // update cell growth on all maps
 

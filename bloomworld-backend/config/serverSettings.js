@@ -1,6 +1,6 @@
 // How many seconds pass between each iteration of the server processing map updates.
 // I've done no performance testing yet--setting this too low with too many maps might make the server hang!!
-export const UPDATE_INTERVAL_LENGTH = 10;
+export const UPDATE_INTERVAL_LENGTH = 2;
 
 // Default maximum number of maps a user can own.
 // Can be manually changed per user in database.

@@ -5,7 +5,7 @@
 
 import { db } from '../firebase.js';
 import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH } from '../config/serverSettings.js';
-import { cell_types, cellSymbolList } from '../cellTypeData/cellTypes.js';
+import { cell_types, cellSymbolList, reproducingCellSymbolList } from '../cellTypeData/cellTypes.js';
 
 
 // generate a new empty map string with specified width and height
@@ -13,32 +13,79 @@ export function generateEmptyMapString(width, height, emptyCellSymbol) {
   return `${width * height}${emptyCellSymbol}`;
 }
 
+// Update map with cell growth.
+// mapData should NOT include line breaks, and should be in its uncompressed, decoded format.
 export function updateMap(mapData, width, height) {
-  
+  const cellEmptySymbol = cell_types.filter((cell) => cell.name === 'empty')[0].symbol;
+  let updatedMap = mapData;
+
   // iterate through map string
   for (let i = 0; i < mapData.length; i++)
   {
-    // if (
+    // if the examined cell is of a type that reproduces
+    if (mapData[i] === reproducingCellSymbolList[0]) {
+      // identify possible locations to place new cell
+      let possibleCellPositionIndexes = [];
+      
+      // look left and right
+      // check if cell to left is empty, and whether you're on left border
+      if (mapData[i - 1] === cellEmptySymbol  && i % width != 0)
+      {
+        possibleCellPositionIndexes.push(i - 1);
+      }
+      // check if cell to right is empty, and whether you're on right border
+      if (mapData[i + 1] === cellEmptySymbol  && i + 1 % width != 0)
+      {
+        possibleCellPositionIndexes.push(i + 1);
+      }
+
+      // look above and below
+      if (mapData[i - width] === cellEmptySymbol && i - width >= 0)
+      {
+        possibleCellPositionIndexes.push(i - width);
+      }
+      if (mapData[i + width] === cellEmptySymbol && i + width < mapData.length)
+      {
+        possibleCellPositionIndexes.push(i + width);
+      }
+      
+      // pick a position randomly from the possible positions list
+      const cellTargetPosition = possibleCellPositionIndexes[Math.floor(Math.random() * possibleCellPositionIndexes.length)];
+
+      // update map that will be returned--not input one
+      // If no possible positions are found, do nothing
+      // Even if a move is possible, there's a static 2/3 chance to do nothing instead
+      if (possibleCellPositionIndexes.length != 0 && Math.floor(Math.random() * 3) > 1) {
+        updatedMap = replaceAtIndex(updatedMap, cellTargetPosition, reproducingCellSymbolList[0]);
+      }
+    }
   }
+
+  return updatedMap;
 }
 
+// Helper function for changing characters in strings (since they're immutable in JS)
+function replaceAtIndex(sourceString, index, replacement) {
+  return sourceString.substring(0, index) + replacement + sourceString.substring(index + replacement.length);
+}
+
+// Helper function for adding line breaks based on height and width in decoded maps
+export function insertLineBreaks(inputStr, width, height) {
+  let outputString = inputStr;
+  let linebreaksInserted = 0;
+  while (linebreaksInserted < height) {
+    // we add the value of linebreaks because the string gets 1 char longer with each new linebreak
+    outputString = outputString.slice(0, width * linebreaksInserted + linebreaksInserted) + '\n' + outputString.slice(width * linebreaksInserted + linebreaksInserted);
+    linebreaksInserted++;
+  }
+  return outputString;
+};
+
 // Parse map string into full length map, with each cell represented by a character.
-export function generateAsciiMap(mapData, width, height, includeLineBreaks = true) {
+export function decodeMap(mapData, width, height, includeLineBreaks = true) {
   
   let outputString = '';
   
-  // Helper function for adding line breaks based on height and width.
-  function insertLineBreaks(inputStr, width, height) {
-    let outputString = inputStr;
-    let linebreaksInserted = 0;
-    while (linebreaksInserted < height) {
-      // we add the value of linebreaks because the string gets 1 char longer with each new linebreak
-      outputString = outputString.slice(0, width * linebreaksInserted + linebreaksInserted) + '\n' + outputString.slice(width * linebreaksInserted + linebreaksInserted);
-      linebreaksInserted++;
-    }
-    return outputString;
-  };
-
   // useful regexes
   const findDigitsRegex = /[0-9]+/;
   const findNonDigit = /[^0-9]/;
@@ -82,7 +129,7 @@ export function generateAsciiMap(mapData, width, height, includeLineBreaks = tru
         return outputString;
       } else { 
         // otherwise, write to outputString and remove symbol sequence
-        const wordStartIndex = 0;
+        const wordStartIndex = 0; // here, 'word' means non-digit sequence
         const wordEndIndex = mapData.search(findNonDigitFollowedByDigit);
 
         outputString += mapData.slice(0, wordEndIndex+1);
